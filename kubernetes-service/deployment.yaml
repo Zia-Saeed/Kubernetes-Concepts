@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    env: demo
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      run: nginx-pod # <-- this is the selector
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        run: nginx-pod # <-- this must match the selector exactly
+    spec:
+      containers:
+      - image: nginx:latest
+        imagePullPolicy: Always
+        name: nginx-pod
+        ports:
+        - containerPort: 80
