@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache2-deploy
+  labels:
+    app: demo-deploy
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: react
+      name: react-app
+    spec:
+      containers:
+      - image: ziasaeeditgeek/three-tier-react-frontend:latest
+        imagePullPolicy: Always
+        name: react
+        ports:
+        - containerPort: 3000
+  selector:
+    matchLabels:
+      app: react
